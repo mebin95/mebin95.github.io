@@ -76,7 +76,7 @@ function findTriple(inputString) {
 
 
 function createPtag() {
-	document.getElementById("addP").innerHTML = "<p id=\"pText\"></p>"
+	document.getElementById("addP").innerHTML = "<p id=\"pText\"></p>";
 }
 
 function addText() {
@@ -85,7 +85,7 @@ function addText() {
 	document.getElementById("pText").innerHTML = value;
 }
 
-function deletePtag() {
+function devarePtag() {
 	document.getElementById("pText").remove();
 }
 
@@ -106,13 +106,13 @@ function getJSON() {
 		var p5 = document.createElement('p');
 
 
-		p1.textContent = requestData['squadName'];
-		p2.textContent = requestData['homeTown'];
-		p3.textContent = requestData['formed'];
-		p4.textContent = requestData['secretBase'];
-		p5.textContent = requestData['active'];
+		p1.textContent = requestData.squadName;
+		p2.textContent = requestData.homeTown;
+		p3.textContent = requestData.formed;
+		p4.textContent = requestData.secretBase;
+		p5.textContent = requestData.active;
 
-		var obj = requestData['members'];
+		var obj = requestData.members;
 
 		document.getElementById("jsonContent").append(p1, p2, p3, p4, p5);
 
@@ -122,16 +122,16 @@ function getJSON() {
 			var p7 = document.createElement('p');
 			var p8 = document.createElement('p');
 			var p9 = document.createElement('p');
-			p6.textContent = obj[i]['name'];
-			p7.textContent = obj[i]['age'];
-			p8.textContent = obj[i]['secretIdentity'];
-			p9.textContent = obj[i]['powers'];
+			p6.textContent = obj[i].name;
+			p7.textContent = obj[i].age;
+			p8.textContent = obj[i].secretIdentity;
+			p9.textContent = obj[i].powers;
 
 			document.getElementById("jsonContent").append(p6, p7, p8, p9);
 
 		}
 
-	}
+	};
 }
 
 
@@ -144,40 +144,79 @@ function searchTerm() {
 	request.send();
 	request.onload = function () {
 
-		var search = document.getElementById("search").value;
+		var search = document.getElementById("search").value.toLowerCase();
 		var requestData = request.response;
+		var count = 0;
+
+		document.getElementById("jsonCount").remove();
+		document.getElementById("jsonSearch").remove();
+
+		var div = document.createElement('div');
+		div.setAttribute("id", "jsonSearch");
+
+		var divCount = document.createElement('div');
+		divCount.setAttribute("id", "jsonCount");
+		divCount.setAttribute("style", "font-weight: bold;");
+
+		document.getElementById("jsonParent").append(divCount, div);
 
 		for (var i = 0; i < requestData.length; i++) {
-
-			//console.log(search);
-
-			// if (requestData[i].hasOwnProperty(search)) {
-			// 	console.log("YES");
-
-			// }
-
-			for (var key in requestData) {
-
-				if (requestData.some[key].some(search)) {
-					console.log("YES");
-				}
-			}
 
 			var p1 = document.createElement('p');
 			var p2 = document.createElement('p');
 			var p3 = document.createElement('p');
 			var p4 = document.createElement('p');
+			var p5 = document.createElement('br');
+			var countTotal = document.createElement('p');
 
-			p1.textContent = "Name :" + requestData[i]['nm'];
-			p2.textContent = "City :" + requestData[i]['cty'];
-			p3.textContent = "House :" + requestData[i]['hse'];
-			p4.textContent = "Years :" + requestData[i]['yrs'];
+			var found = false;
 
-			//document.getElementById("jsonSearch").append(p1, p2, p3, p4);
+			if (requestData[i].nm.toLowerCase().includes(search)) {
+
+				found = true;
+
+			}
+
+			if (requestData[i].cty.toLowerCase().includes(search)) {
+
+				found = true;
+
+			}
+
+			if (requestData[i].hse.toLowerCase().includes(search)) {
+
+				found = true;
+
+			}
+
+			if (requestData[i].yrs.toLowerCase().includes(search)) {
+
+				found = true;
+
+			}
+
+			if (found) {
+				count++;
+				p1.textContent = "Name :" + requestData[i].nm;
+				p2.textContent = "City :" + requestData[i].cty;
+				p3.textContent = "House :" + requestData[i].hse;
+				p4.textContent = "Years :" + requestData[i].yrs + "\n";
+				document.getElementById("jsonSearch").append(p1, p2, p3, p4, p5);
+			}
+
+			if (count > 0 && requestData.length - 1 == i) {
+				console.log(i);
+				countTotal.textContent = "Found " + count + " records";
+				document.getElementById("jsonCount").append(countTotal);
+			}
 
 		}
 
-	}
+		if (count === 0) {
+			document.getElementById("jsonSearch").append("Did not find any records sorry!")
+		}
+
+	};
 }
 
 
