@@ -213,7 +213,7 @@ function searchTerm() {
 		}
 
 		if (count === 0) {
-			document.getElementById("jsonSearch").append("Did not find any records sorry!")
+			document.getElementById("jsonSearch").append("Did not find any records sorry!");
 		}
 
 	};
