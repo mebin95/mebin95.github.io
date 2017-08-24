@@ -1,236 +1,125 @@
 class Garage {
 
+	constructor() {
 
+		this.listOfVehicles = [];
+
+	}
+
+
+	addVehicle(Car) {
+
+		this.listOfVehicles.push(Car);
+
+	}
+
+}
+
+class Car {
+
+	constructor(make, model, reg, cost, faults) {
+
+		this.make = make;
+		this.model = model;
+		this.reg = reg;
+		this.cost = cost;
+		this.faults = faults;
+
+	}
 
 
 }
 
-//class Car {
+
+//let c2 = new Car("BMW", "3 Series", "MK55DSP", 33500, "none");
 
 
-function Car(make, model, engine, cost, faults) {
 
-	this.make = make;
-	this.model = model;
-	this.engine = engine;
-	this.cost = cost;
-	this.faults = faults;
+let qa = new Garage();
 
+//console.log(qa.listOfVehicles[0].make);
+function hide() {
+	// if (qa.listOfVehicles.length === 0) {
+	// 	document.getElementById("parentTb").style.display = "none";
+	// 	document.getElementById("tb").innerHTML = "No Vehicles In the Garage!";
+	// 	console.log("YES");
+	// }
 }
-
-let benz = new Car("bmW", "3 series", 1.6, 36000, "none");
-
-
-//}
-
-
-
-console.log(benz.model);
-
 
 function getVehicleData() {
 
 	let make = document.getElementById("make").value;
 	let model = document.getElementById("model").value;
-	let engine = document.getElementById("engine").value;
+	let reg = document.getElementById("engine").value;
 	let cost = document.getElementById("cost").value;
 	let faults = document.getElementById("faults").value;
 
+	if (make != "" && model != "" && reg != "" && cost != "") {
+		addToGarage(make, model, reg, cost, faults);
 
-
-}
-
-function addToGarage(make, model, engine, cost, faults) {
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function findTriple(inputString) {
-
-	var count = 0;
-
-	for (var i = 0; i < inputString.length - 2; i++) {
-		var currentString = inputString.charAt(i);
-		var string2 = inputString.charAt(i + 1);
-		var string3 = inputString.charAt(i + 2);
-
-		if (currentString === string2 && currentString === string3) {
-			count++;
-		}
-
-		console.log(count);
+		displayVehicle();
+		console.log(qa.listOfVehicles);
+	} else {
+		alert("Please enter all the values");
 	}
+
+
+
 }
 
+function addToGarage(make, model, reg, cost, faults) {
 
-//findTriple("aaabbbcccc");
+	let c1 = new Car(make, model, reg, cost, faults);
+	qa.addVehicle(c1);
 
-
-function createPtag() {
-	document.getElementById("addP").innerHTML = "<p id=\"pText\"></p>";
 }
 
-function addText() {
-	var value = document.getElementById("pTag").value;
-	console.log(value);
-	document.getElementById("pText").innerHTML = value;
+function removeVehicle(index) {
+	qa.listOfVehicles.splice(index, 1);
+	document.getElementById("listTr" + index).remove();
+	console.log(qa.listOfVehicles);
 }
 
-function devarePtag() {
-	document.getElementById("pText").remove();
+function costOfFix(a) {
+
+	let baseCost = qa.listOfVehicles[a].cost * 0.05;
+	let knownFault = qa.listOfVehicles[a].faults;
+
+	if (knownFault == "Yes") {
+		return Math.round((baseCost * 2) * 100) / 100;
+	} else {
+		return 0;
+	}
+
 }
 
-function getJSON() {
-	var requestURL = document.getElementById("JSONurl").value;
+function displayVehicle() {
 
-	var request = new XMLHttpRequest();
-	request.open('GET', requestURL);
-	request.responseType = 'json';
-	request.send();
-	request.onload = function () {
-		var requestData = request.response;
+	let lastelement = qa.listOfVehicles.length - 1;
 
-		var p1 = document.createElement('p');
-		var p2 = document.createElement('p');
-		var p3 = document.createElement('p');
-		var p4 = document.createElement('p');
-		var p5 = document.createElement('p');
+	let tr = document.createElement('tr');
+	tr.setAttribute("id", "listTr" + lastelement);
+	let td1 = document.createElement('td');
+	let td2 = document.createElement('td');
+	let td3 = document.createElement('td');
+	let td4 = document.createElement('td');
+	let td5 = document.createElement('td');
+	let td6 = document.createElement('td');
+	td6.setAttribute("style", "text-align: center;");
 
+	let td7 = document.createElement('td');
+	td6.setAttribute("style", "text-align: center;");
 
-		p1.textContent = requestData.squadName;
-		p2.textContent = requestData.homeTown;
-		p3.textContent = requestData.formed;
-		p4.textContent = requestData.secretBase;
-		p5.textContent = requestData.active;
+	td1.textContent = qa.listOfVehicles[lastelement].make;
+	td2.textContent = qa.listOfVehicles[lastelement].model;
+	td3.textContent = qa.listOfVehicles[lastelement].reg;
+	td4.textContent = qa.listOfVehicles[lastelement].cost;
+	td5.textContent = qa.listOfVehicles[lastelement].faults;
+	td6.innerHTML = '<a class="btn btn-flat" onClick="removeVehicle(' + lastelement + ');"><i class="fa fa-remove"></i></a>';
+	td7.textContent = costOfFix(lastelement);
 
-		var obj = requestData.members;
+	document.getElementById("vehiclesList").append(tr);
+	document.getElementById("listTr" + lastelement).append(td1, td2, td3, td4, td5, td6, td7);
 
-		document.getElementById("jsonContent").append(p1, p2, p3, p4, p5);
-
-		for (var i = 0; i < obj.length; i++) {
-
-			var p6 = document.createElement('p');
-			var p7 = document.createElement('p');
-			var p8 = document.createElement('p');
-			var p9 = document.createElement('p');
-			p6.textContent = obj[i].name;
-			p7.textContent = obj[i].age;
-			p8.textContent = obj[i].secretIdentity;
-			p9.textContent = obj[i].powers;
-
-			document.getElementById("jsonContent").append(p6, p7, p8, p9);
-
-		}
-
-	};
 }
-
-
-
-function searchTerm() {
-	var requestURL = document.getElementById("JSONsearch").value;
-
-	var request = new XMLHttpRequest();
-	request.open('GET', requestURL); request.responseType = 'json';
-	request.send();
-	request.onload = function () {
-
-		var search = document.getElementById("search").value.toLowerCase();
-		var requestData = request.response;
-		var count = 0;
-
-		document.getElementById("jsonCount").remove();
-		document.getElementById("jsonSearch").remove();
-
-		var div = document.createElement('div');
-		div.setAttribute("id", "jsonSearch");
-
-		var divCount = document.createElement('div');
-		divCount.setAttribute("id", "jsonCount");
-		divCount.setAttribute("style", "font-weight: bold;");
-
-		document.getElementById("jsonParent").append(divCount, div);
-
-		for (var i = 0; i < requestData.length; i++) {
-
-			var p1 = document.createElement('p');
-			var p2 = document.createElement('p');
-			var p3 = document.createElement('p');
-			var p4 = document.createElement('p');
-			var p5 = document.createElement('br');
-			var countTotal = document.createElement('p');
-
-			var found = false;
-
-			if (requestData[i].nm.toLowerCase().includes(search)) {
-
-				found = true;
-
-			}
-
-			if (requestData[i].cty.toLowerCase().includes(search)) {
-
-				found = true;
-
-			}
-
-			if (requestData[i].hse.toLowerCase().includes(search)) {
-
-				found = true;
-
-			}
-
-			if (requestData[i].yrs.toLowerCase().includes(search)) {
-
-				found = true;
-
-			}
-
-			if (found) {
-				count++;
-				p1.textContent = "Name :" + requestData[i].nm;
-				p2.textContent = "City :" + requestData[i].cty;
-				p3.textContent = "House :" + requestData[i].hse;
-				p4.textContent = "Years :" + requestData[i].yrs + "\n";
-				document.getElementById("jsonSearch").append(p1, p2, p3, p4, p5);
-			}
-
-			if (count > 0 && requestData.length - 1 == i) {
-				console.log(i);
-				countTotal.textContent = "Found " + count + " records";
-				document.getElementById("jsonCount").append(countTotal);
-			}
-
-		}
-
-		if (count === 0) {
-			document.getElementById("jsonSearch").append("Did not find any records sorry!")
-		}
-
-	};
-}
-
-
-
-
-
-
-
 

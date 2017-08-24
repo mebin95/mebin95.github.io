@@ -34,35 +34,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to get the
-desired effect
-|---------------------------------------------------------|
-| SKINS         | skin-blue                               |
-|               | skin-black                              |
-|               | skin-purple                             |
-|               | skin-yellow                             |
-|               | skin-red                                |
-|               | skin-green                              |
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | fixed                                   |
-|               | layout-boxed                            |
-|               | layout-top-nav                          |
-|               | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body onload="hide()" class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
 
     <!-- Main Header -->
     <header class="main-header">
 
       <!-- Logo -->
-      <a href="index2.html" class="logo">
+      <a href="index.html" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>QA</b>G</span>
         <!-- logo for regular state and mobile devices -->
@@ -108,6 +88,7 @@ desired effect
           <li class="header">HEADER</li>
           <!-- Optionally, you can add icons to the links -->
           <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Home</span></a></li>
+          <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Admin Interface</span></a></li>
           <!-- <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li> -->
           <!-- <li class="treeview">
             <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
@@ -149,70 +130,95 @@ desired effect
           </div>
           <div class="box-body">
             <div class="row">
-              <div class="col-xs-2">
+              <div class="col-xs-3">
+                <label>Make: </label>
                 <input type="text" class="form-control" id="make" placeholder="Make">
               </div>
 
-              <div class="col-xs-2">
+              <div class="col-xs-3">
+                <label>Model: </label>
                 <input type="text" class="form-control" id="model" placeholder="Model">
               </div>
 
-              <div class="col-xs-2">
-                <input type="text" class="form-control" id="engine" placeholder="Engine Size">
+              <div class="col-xs-3">
+                <label>Registration: </label>
+                <input type="text" class="form-control" id="engine" placeholder="Registration">
               </div>
 
-              <div class="col-xs-2">
+              <div class="col-xs-3">
+                <label>Cost: </label>
                 <input type="text" class="form-control" id="cost" placeholder="Cost">
               </div>
+              <br>
+              <p></p>
+              </br>
+              <div class="col-xs-3">
+                <!-- <label>Any Known Faults? </label>
+                <select id="faults">
+                    <option>Yes</option>
+                    <option>No</option>
+                </select> -->
 
-              <div class="col-xs-2">
-                <input type="text" class="form-control" id="faults" placeholder="Known Faults">
+                <div class="form-group">
+                  <label>Any Known Faults?</label>
+                  <select id="faults" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                      <option selected="selected">Yes</option>
+                      <option>No</option>
+                    </select>
+                  <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
+                  </span>
+                  </span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                </div>
+
+
+
+
+                <!-- <input type="text" class="form-control" id="faults" placeholder="Known Faults"> -->
               </div>
 
 
             </div>
           </div>
           <div class="box-footer">
-            <button type="submit" class="btn btn-default">Cancel</button>
+            <!-- <button type="submit" onClick=hide(); class="btn btn-default">Cancel</button> -->
             <button type="submit" onClick=getVehicleData(); class="btn btn-info pull-right btn btn-primary">Add Vehicle</button>
           </div>
           <!-- /.box-body -->
         </div>
 
 
-        <div class="box">
+        <div class="box" id="parentTb">
           <div class="box-header">
             <h3 class="box-title">Garage List</h3>
           </div>
           <!-- /.box-header -->
-          <div class="box-body">
-            <table id="example1" class="table table-bordered table-striped">
-              <thead>
+          <div class="box-body" id="tb">
+            <table id="tableID" class="table table-bordered table-striped">
+              <thead id="tdHead">
                 <tr>
                   <th>Make</th>
                   <th>Model</th>
-                  <th>Engine Size</th>
+                  <th>Registration</th>
                   <th>Cost (£)</th>
                   <th>Known Faults</th>
+                  <th>Remove</th>
+                  <th>Cost To Fix (£)</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>BMW</td>
-                  <td>3 Series</td>
-                  <td>1.9</td>
-                  <td>36000</td>
-                  <td>N/A</td>
-                </tr>
+
+              <tbody id="vehiclesList">
 
               </tbody>
+
               <tfoot>
                 <tr>
                   <th>Make</th>
                   <th>Model</th>
-                  <th>Engine Size</th>
+                  <th>Registration</th>
                   <th>Cost (£)</th>
                   <th>Known Faults</th>
+                  <th>Remove</th>
+                  <th>Cost To Fix (£)</th>
                 </tr>
               </tfoot>
             </table>
@@ -235,78 +241,6 @@ desired effect
       <strong>Copyright &copy; 2017 <a href="#">QA</a>.</strong> All rights reserved.
     </footer>
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-      <!-- Create the tabs -->
-      <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-        <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-        <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-      </ul>
-      <!-- Tab panes -->
-      <div class="tab-content">
-        <!-- Home tab content -->
-        <div class="tab-pane active" id="control-sidebar-home-tab">
-          <h3 class="control-sidebar-heading">Recent Activity</h3>
-          <ul class="control-sidebar-menu">
-            <li>
-              <a href="javascript:;">
-              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                <p>Will be 23 on April 24th</p>
-              </div>
-            </a>
-            </li>
-          </ul>
-          <!-- /.control-sidebar-menu -->
-
-          <h3 class="control-sidebar-heading">Tasks Progress</h3>
-          <ul class="control-sidebar-menu">
-            <li>
-              <a href="javascript:;">
-                <h4 class="control-sidebar-subheading">
-                  Custom Template Design
-                  <span class="pull-right-container">
-                    <span class="label label-danger pull-right">70%</span>
-                  </span>
-                </h4>
-
-                <div class="progress progress-xxs">
-                  <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                </div>
-              </a>
-            </li>
-          </ul>
-          <!-- /.control-sidebar-menu -->
-
-        </div>
-        <!-- /.tab-pane -->
-        <!-- Stats tab content -->
-        <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
-        <!-- /.tab-pane -->
-        <!-- Settings tab content -->
-        <div class="tab-pane" id="control-sidebar-settings-tab">
-          <form method="post">
-            <h3 class="control-sidebar-heading">General Settings</h3>
-
-            <div class="form-group">
-              <label class="control-sidebar-subheading">
-              Report panel usage
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-
-              <p>
-                Some information about this general settings option
-              </p>
-            </div>
-            <!-- /.form-group -->
-          </form>
-        </div>
-        <!-- /.tab-pane -->
-      </div>
-    </aside>
     <!-- /.control-sidebar -->
     <!-- Add the sidebar's background. This div must be placed
   immediately after the control sidebar -->
