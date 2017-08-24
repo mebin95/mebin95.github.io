@@ -14,7 +14,7 @@ function iterate3(limit, fizzWord, buzzWord) {
 	}
 }
 
-//iterate3(10, "Three", "Five");
+iterate3(10, "Three", "Five");
 
 
 function iterate4(number) {
@@ -51,7 +51,7 @@ function iterate4(number) {
 
 
 
-//iterate4(1000);
+iterate4(100);
 
 
 function findTriple(inputString) {
@@ -72,7 +72,7 @@ function findTriple(inputString) {
 }
 
 
-//findTriple("aaabbbcccc");
+findTriple("aaabbbcccc");
 
 
 function createPtag() {

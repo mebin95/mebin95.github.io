@@ -31,9 +31,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <style type="text/css">
+    
+iframe {
+    display: block;       /* iframes are inline by default */      /* Reset default border */
+    height: 200vh;        /* Viewport-relative units */
+    width: 100%;
+}
+
+  </style>
 </head>
 
-<body onload="hide()" class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
 
     <!-- Main Header -->
@@ -50,7 +59,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Header Navbar -->
       <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
-        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <a href="#" class="sidebar-toggle"  data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
         <!-- Navbar Right Menu -->
@@ -74,18 +83,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <ul class="sidebar-menu" data-widget="tree">
           <li class="header">Navigation</li>
           <!-- Optionally, you can add icons to the links -->
-          <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Home</span></a></li>
-          <li class=""><a href="#"><i class="fa fa-link"></i> <span>Basic</span></a></li>
+          <li class="active"><a href="https://mebin95.github.io"><i class="fa fa-link"></i> <span>Home</span></a></li>
+          <li class=""><a href="https://mebin95.github.io/JavaScript/Basic/basic.html" target="iframe1"><i class="fa fa-link"></i> <span>Basic</span></a></li>
 
           <li class="treeview">
-            <a href="#"><i class="fa fa-link"></i> <span>Advanced</span>
+            <a href="#" ><i class="fa fa-link"></i> <span>Intermediate</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a>
             <ul class="treeview-menu">
-              <li><a href="#">Tasks</a></li>
-              <li><a href="https://www.google.co.uk/" target="iframe1">Garage</a></li>
+              <li><a href="https://mebin95.github.io/index2.html" target="iframe1">Tasks</a></li>
+              <li><a href="https://mebin95.github.io//JavaScript/Intermediate/Garage/index.html" target="iframe1">Garage</a></li>
             </ul>
           </li>
         </ul>
@@ -103,17 +112,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <small>Welcome to my GitHub Page!</small>
         </h1>
         <ol class="breadcrumb">
-          <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-          <li class="active">Here</li>
+          <li><a href="#"><i class="fa fa-dashboard"></i> GitHub.io</a></li>
+          <li class="active">Home</li>
         </ol>
       </section>
 
       <!-- Main content -->
       <section class="content container-fluid">
 
-        <div class="box box-primary">
+        <div class="box box-primary" style="overflow:hidden;height:100%;width:100%;">
 
-          <iframe name="iframe1" src=""></iframe>
+          <iframe name="iframe1" src="" frameborder="0" style="overflow:hidden;height:50vw;width:100%" height="100%" width="100%">
+    
+
+          </iframe>
 
         </div>
 

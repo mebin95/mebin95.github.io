@@ -82,11 +82,11 @@ function removeVehicle(index) {
 
 function costOfFix(a) {
 
-	let baseCost = qa.listOfVehicles[a].cost * 0.05;
+	let baseCost = qa.listOfVehicles[a].cost * 0.06;
 	let knownFault = qa.listOfVehicles[a].faults;
 
 	if (knownFault == "Yes") {
-		return Math.round((baseCost * 2) * 100) / 100;
+		return Math.round((baseCost * 2) * 100) / 100 + 50;
 	} else {
 		return 0;
 	}
